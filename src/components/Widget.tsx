@@ -1,28 +1,30 @@
 import React from 'react';
-import { WidgetType } from '../types/widgetType';
-import { widgetUtils } from '../utils/widgetUtils';
+import { WidgetType } from '../types/WidgetType';
 import 'src/styles/tailwind.css';
 
 interface WidgetProps {
   widget: WidgetType;
-  onMove: (widget: WidgetType, direction: string) => void;
-  onResize: (widget: WidgetType, direction: string) => void;
+  onResize: (widget: WidgetType, width: number, height: number) => void;
+  onMove: (widget: WidgetType, x: number, y: number) => void;
 }
 
-const Widget: React.FC<WidgetProps> = ({ widget, onMove, onResize }) => {
+const Widget: React.FC<WidgetProps> = ({ widget, onResize, onMove }) => {
+  const handleResize = (event: React.MouseEvent) => {
+    const width = event.currentTarget.clientWidth;
+    const height = event.currentTarget.clientHeight;
+    onResize(widget, width, height);
+  };
+
+  const handleMove = (event: React.MouseEvent) => {
+    const x = event.clientX;
+    const y = event.clientY;
+    onMove(widget, x, y);
+  };
+
   return (
-    <div className="widget-container">
-      <div className="widget-header">
-        <h2>{widget.title}</h2>
-        <div className="widget-controls">
-          <button onClick={() => onMove(widget, 'left')}>Move Left</button>
-          <button onClick={() => onMove(widget, 'right')}>Move Right</button>
-          <button onClick={() => onResize(widget, 'expand')}>Expand</button>
-          <button onClick={() => onResize(widget, 'shrink')}>Shrink</button>
-        </div>
-      </div>
+    <div className="widget" style={{ width: widget.width, height: widget.height, left: widget.x, top: widget.y }} onMouseDown={handleMove} onResize={handleResize}>
       <div className="widget-content">
-        {widgetUtils.renderWidgetContent(widget)}
+        {widget.content}
       </div>
     </div>
   );

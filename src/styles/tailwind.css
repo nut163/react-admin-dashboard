@@ -2,48 +2,38 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Custom styles for Dashboard Widgets */
-.widget-container {
-  @apply flex flex-wrap justify-center items-center;
+/* Custom styles for the dashboard */
+.dashboard {
+  @apply bg-gray-100;
 }
 
+/* Custom styles for the widgets */
 .widget {
-  @apply m-2 p-4 bg-white rounded shadow-lg;
+  @apply bg-white shadow-md rounded-lg p-4;
 }
 
 .widget-header {
-  @apply text-lg font-bold mb-2;
+  @apply text-lg font-semibold mb-2;
 }
 
 .widget-content {
-  @apply text-gray-700 text-base;
+  @apply text-base;
 }
 
-/* Custom styles for Authentication */
-.auth-container {
-  @apply flex flex-col justify-center items-center min-h-screen bg-gray-100;
+/* Custom styles for the widget container */
+.widget-container {
+  @apply grid grid-cols-3 gap-4;
 }
 
-.auth-card {
-  @apply w-full max-w-xs p-6 bg-white rounded shadow-lg;
+/* Custom styles for the authentication component */
+.authentication {
+  @apply bg-white shadow-md rounded-lg p-4;
 }
 
-.auth-card-header {
-  @apply text-lg font-bold mb-4;
+.authentication-header {
+  @apply text-lg font-semibold mb-2;
 }
 
-.auth-card-body {
-  @apply text-gray-700 text-base;
-}
-
-.auth-input {
-  @apply w-full px-3 py-2 mb-3 text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline;
-}
-
-.auth-button {
-  @apply w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline;
-}
-
-.auth-link {
-  @apply inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800;
+.authentication-content {
+  @apply text-base;
 }

@@ -1,16 +1,30 @@
-Shared Dependencies:
+1. Dependencies: 
+   - React: Used in all .tsx files for creating components.
+   - Typescript: Used in all .ts and .tsx files for static typing.
+   - Tailwind CSS: Used in all .tsx files for styling.
+   - Firebase: Used in Firebase.ts for user authentication.
 
-1. React: Used across all the .tsx files for creating components.
-2. Typescript: Used across all .tsx and .ts files for static typing.
-3. Tailwind CSS: Used in "src/styles/tailwind.css" and referenced in all component files for styling.
-4. Firebase Authentication: Used in "src/services/authService.ts" and "src/components/Authentication.tsx", "src/components/Login.tsx", "src/components/Register.tsx" for user authentication.
-5. WidgetType: Defined in "src/types/widgetType.ts" and used in "src/components/Widget.tsx" and "src/components/WidgetContainer.tsx" to define the type of widgets.
-6. widgetUtils: Defined in "src/utils/widgetUtils.ts" and used in "src/components/Widget.tsx" and "src/components/WidgetContainer.tsx" for widget manipulation functions.
-7. authService: Defined in "src/services/authService.ts" and used in "src/components/Authentication.tsx", "src/components/Login.tsx", "src/components/Register.tsx" for authentication services.
-8. App Component: Defined in "src/App.tsx" and used in "src/index.tsx" as the root component.
-9. Dashboard Component: Defined in "src/components/Dashboard.tsx" and used in "src/App.tsx" as a part of the main application.
-10. Widget and WidgetContainer Components: Defined in "src/components/Widget.tsx" and "src/components/WidgetContainer.tsx" respectively, and used in "src/components/Dashboard.tsx" to display widgets.
-11. Authentication, Login, and Register Components: Defined in "src/components/Authentication.tsx", "src/components/Login.tsx", and "src/components/Register.tsx" respectively, and used in "src/App.tsx" for user authentication.
-12. DOM Elements: IDs for DOM elements will be defined in the respective component files and used in the same for manipulation.
-13. Message Names: Any message names for user notifications or errors will be defined and used within the respective component files.
-14. Function Names: Function names will be defined in their respective files (like "src/services/authService.ts" and "src/utils/widgetUtils.ts") and used in the component files where they are imported.
+2. Exported Variables:
+   - App from App.tsx: Main application component.
+   - Dashboard from Dashboard.tsx: Dashboard component.
+   - Widget from Widget.tsx: Widget component.
+   - WidgetContainer from WidgetContainer.tsx: Container for widgets.
+   - Authentication from Authentication.tsx: Authentication component.
+   - Firebase from Firebase.ts: Firebase service for authentication.
+
+3. Data Schemas:
+   - WidgetType in WidgetType.ts: Defines the structure of a widget.
+   - UserType in UserType.ts: Defines the structure of a user.
+
+4. ID Names of DOM Elements:
+   - "root" in index.html: The root element where the React app is injected.
+
+5. Message Names:
+   - "authChange" in Firebase.ts: Event fired when authentication state changes.
+
+6. Function Names:
+   - "render" in all .tsx files: Renders the component.
+   - "onAuthStateChanged" in Firebase.ts: Listens for changes in authentication state.
+   - "signIn" and "signOut" in Authentication.tsx: Functions for signing in and out.
+   - "addWidget" and "removeWidget" in Dashboard.tsx: Functions for adding and removing widgets.
+   - "resizeWidget" and "moveWidget" in WidgetContainer.tsx: Functions for resizing and moving widgets.

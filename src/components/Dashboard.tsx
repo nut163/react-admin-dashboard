@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import WidgetContainer from './WidgetContainer';
-import { WidgetType } from '../types/widgetType';
-import { getWidgets } from '../utils/widgetUtils';
-import 'tailwindcss/tailwind.css';
+import WidgetType from '../types/WidgetType';
+import 'src/styles/tailwind.css';
 
 const Dashboard: React.FC = () => {
   const [widgets, setWidgets] = useState<WidgetType[]>([]);
 
-  useEffect(() => {
-    const loadWidgets = async () => {
-      const widgetData = await getWidgets();
-      setWidgets(widgetData);
-    };
+  const addWidget = (widget: WidgetType) => {
+    setWidgets([...widgets, widget]);
+  };
 
-    loadWidgets();
-  }, []);
+  const removeWidget = (id: string) => {
+    setWidgets(widgets.filter(widget => widget.id !== id));
+  };
 
   return (
     <div className="dashboard">
-      {widgets.map((widget, index) => (
-        <WidgetContainer key={index} widget={widget} />
-      ))}
+      <button onClick={() => addWidget({ id: 'new', x: 0, y: 0, width: 1, height: 1 })}>
+        Add Widget
+      </button>
+      <div className="widgets">
+        {widgets.map(widget => (
+          <WidgetContainer key={widget.id} widget={widget} removeWidget={removeWidget} />
+        ))}
+      </div>
     </div>
   );
 };

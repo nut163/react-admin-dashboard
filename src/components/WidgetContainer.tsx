@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
-import { WidgetType } from '../types/widgetType';
+import { WidgetType } from '../types/WidgetType';
 import Widget from './Widget';
-import { moveWidget, stretchWidget } from '../utils/widgetUtils';
+import { Rnd } from 'react-rnd';
 
 interface WidgetContainerProps {
   widgets: WidgetType[];
+  onWidgetResize: (id: string, width: string, height: string) => void;
+  onWidgetMove: (id: string, x: string, y: string) => void;
 }
 
-const WidgetContainer: React.FC<WidgetContainerProps> = ({ widgets }) => {
-  const [widgetList, setWidgetList] = useState<WidgetType[]>(widgets);
-
-  const handleMove = (id: string, direction: string) => {
-    const newWidgetList = moveWidget(widgetList, id, direction);
-    setWidgetList(newWidgetList);
-  };
-
-  const handleStretch = (id: string, direction: string) => {
-    const newWidgetList = stretchWidget(widgetList, id, direction);
-    setWidgetList(newWidgetList);
-  };
+const WidgetContainer: React.FC<WidgetContainerProps> = ({ widgets, onWidgetResize, onWidgetMove }) => {
+  const [activeWidget, setActiveWidget] = useState<string | null>(null);
 
   return (
-    <div className="widget-container">
-      {widgetList.map((widget) => (
-        <Widget
+    <div className="flex flex-wrap">
+      {widgets.map((widget) => (
+        <Rnd
           key={widget.id}
-          widget={widget}
-          onMove={handleMove}
-          onStretch={handleStretch}
-        />
+          size={{ width: widget.width, height: widget.height }}
+          position={{ x: widget.x, y: widget.y }}
+          onDragStop={(e, d) => {
+            onWidgetMove(widget.id, d.x, d.y);
+          }}
+          onResizeStop={(e, direction, ref) => {
+            onWidgetResize(widget.id, ref.style.width, ref.style.height);
+          }}
+          onClick={() => setActiveWidget(widget.id)}
+          className={`widget ${activeWidget === widget.id ? 'active' : ''}`}
+        >
+          <Widget widget={widget} />
+        </Rnd>
       ))}
     </div>
   );

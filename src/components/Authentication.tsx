@@ -1,32 +1,49 @@
-import React, { useState } from 'react';
-import { authService } from '../services/authService';
-import Login from './Login';
-import Register from './Register';
+```tsx
+import React, { useEffect, useState } from 'react';
+import { Firebase } from '../services/Firebase';
 
 const Authentication: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [user, setUser] = useState(null);
 
-  const toggleIsLogin = () => {
-    setIsLogin(!isLogin);
+  useEffect(() => {
+    const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const signIn = async () => {
+    try {
+      const provider = new Firebase.auth.GoogleAuthProvider();
+      await Firebase.auth().signInWithPopup(provider);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleAuth = async (email: string, password: string) => {
-    if (isLogin) {
-      await authService.login(email, password);
-    } else {
-      await authService.register(email, password);
+  const signOut = async () => {
+    try {
+      await Firebase.auth().signOut();
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <div className="authentication">
-      {isLogin ? (
-        <Login handleAuth={handleAuth} toggleIsLogin={toggleIsLogin} />
+    <div>
+      {user ? (
+        <button onClick={signOut}>Sign Out</button>
       ) : (
-        <Register handleAuth={handleAuth} toggleIsLogin={toggleIsLogin} />
+        <button onClick={signIn}>Sign In</button>
       )}
     </div>
   );
 };
 
 export default Authentication;
+```
