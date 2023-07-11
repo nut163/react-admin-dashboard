@@ -1,0 +1,39 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom styles for the dashboard */
+.dashboard {
+  @apply bg-gray-100;
+}
+
+/* Custom styles for the widgets */
+.widget {
+  @apply bg-white shadow-md rounded-lg p-4;
+}
+
+.widget-header {
+  @apply text-lg font-semibold mb-2;
+}
+
+.widget-content {
+  @apply text-base;
+}
+
+/* Custom styles for the widget container */
+.widget-container {
+  @apply grid grid-cols-3 gap-4;
+}
+
+/* Custom styles for the authentication component */
+.authentication {
+  @apply bg-white shadow-md rounded-lg p-4;
+}
+
+.authentication-header {
+  @apply text-lg font-semibold mb-2;
+}
+
+.authentication-content {
+  @apply text-base;
+}
